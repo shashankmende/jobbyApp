@@ -1,0 +1,136 @@
+.bg-container {
+  background-color: #121212;
+
+  min-height: 200vh;
+  padding-bottom: 20px;
+}
+
+.jobs-bottom-container {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 576px) {
+  .jobs-bottom-container {
+    width: 100%;
+  }
+  .bottom-container {
+    width: 80%;
+  }
+}
+
+.search-container {
+  border: 1px solid #64748b;
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-element {
+  width: 90%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 5px;
+}
+.search-icon {
+  color: white;
+}
+
+.search-btn {
+  background-color: #475569;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.mob-profile-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.name {
+  font-family: 'Roboto';
+  color: #6366f1;
+}
+.horizontail-line {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 2px;
+}
+.unordered-employment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+}
+.employment-item {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Roboto';
+  margin-bottom: 10px;
+  cursor: pointer;
+  outline: none;
+}
+.failure-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.retry-btn {
+  background-color: #6366f1;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+.jobs-list-failure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Roboto';
+}
+
+.jobs-failure-image {
+  width: 70%;
+}
+
+.jobs-failure-retry-btn {
+  background-color: #6366f1;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.no-products-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto';
+  color: white;
+}
+.success-jobs-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}

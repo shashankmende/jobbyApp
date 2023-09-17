@@ -1,0 +1,74 @@
+.job-description-container {
+  background-color: #202020;
+  padding: 15px;
+  border-radius: 8px;
+
+  list-style-type: none;
+  margin-bottom: 15px;
+}
+
+.company-logo {
+  width: 80px;
+  height: 80px;
+}
+
+.designation {
+  color: white;
+  font-family: 'Roboto';
+}
+
+.company-container {
+  display: flex;
+  flex-direction: row;
+}
+.designation-container {
+  margin-left: 25px;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+}
+
+.star-image {
+  color: #fbbf24;
+  margin-right: 15px;
+}
+
+.location-job-salary-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.location-job-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  flex-grow: 1;
+}
+.location-container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 15px;
+  align-items: center;
+  color: white;
+}
+.horizontal-line {
+  width: 100%;
+  height: 2px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #f1f5f9;
+}
+.job-description {
+  color: white;
+}
+.package {
+  color: white;
+}

@@ -1,4 +1,5 @@
 import './index.css'
+import {Link} from 'react-router-dom'
 import Header from '../Header'
 
 const Home = () => (
@@ -15,9 +16,11 @@ const Home = () => (
           <br /> information,company reviews. Find the job that fits your
           <br /> abilities and potenital
         </p>
-        <button className="find-jobs-btn" type="button">
-          Find Jobs
-        </button>
+        <Link to="/jobs">
+          <button className="find-jobs-btn" type="button">
+            Find Jobs
+          </button>
+        </Link>
       </div>
     </div>
   </div>

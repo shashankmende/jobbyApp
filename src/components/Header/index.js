@@ -3,9 +3,11 @@ import {Link, withRouter} from 'react-router-dom'
 import {GoHome} from 'react-icons/go'
 import {BiShoppingBag} from 'react-icons/bi'
 import {FiLogOut} from 'react-icons/fi'
+import Cookies from 'js-cookie'
 
 const Header = props => {
   const onClickLogout = () => {
+    Cookies.remove('jwt_token')
     const {history} = props
     history.replace('/login')
   }
