@@ -1,10 +1,14 @@
 import './index.css'
 import Loader from 'react-loader-spinner'
-import {BsSearch} from 'react-icons/bs'
+import {BsSearch, BsBagFill} from 'react-icons/bs'
 
 import Cookies from 'js-cookie'
 import {Component} from 'react'
-import JobItems from '../JobItems'
+import {Link} from 'react-router-dom'
+import {AiFillStar} from 'react-icons/ai'
+
+import {IoLocationSharp} from 'react-icons/io5'
+
 import Header from '../Header'
 
 const employmentTypesList = [
@@ -247,21 +251,52 @@ class Jobs extends Component {
     title: list.title,
   })
 
+  renderJobItems = each => (
+    <Link to={`/jobs/${each.id}`}>
+      <div className="job-description-container">
+        <div className="company-container">
+          <img
+            src={each.companyLogoUrl}
+            alt="company logo"
+            className="company-logo"
+          />
+          <div className="designation-container">
+            <h1 className="designation">{each.title}</h1>
+            <div className="rating-container">
+              <AiFillStar className="star-image" />
+              <p>{each.rating}</p>
+            </div>
+          </div>
+        </div>
+        <div className="location-job-salary-container">
+          <div className="location-job-container">
+            <div className="location-container">
+              <IoLocationSharp />
+              <p>{each.location}</p>
+            </div>
+            <div className="location-container">
+              <BsBagFill />
+              <p>{each.employmentType}</p>
+            </div>
+          </div>
+          <p className="package">{each.packagePerAnnum}</p>
+        </div>
+        <hr className="horizontal-line" />
+        <p className="job-description">{each.jobDescription}</p>
+      </div>
+    </Link>
+  )
+
   renderJobsSuccess = () => {
     const {jobsList} = this.state
     const lengthOfJobsList = jobsList.length
     const updatedList = jobsList.map(each => this.convertToCamelCase(each))
+
     if (lengthOfJobsList === 0) {
       return this.renderNoProductsSection()
     }
 
-    return (
-      <ul className="success-jobs-container">
-        {updatedList.map(each => (
-          <JobItems List={each} key={each.id} />
-        ))}
-      </ul>
-    )
+    return <div>{updatedList.map(each => this.renderJobItems(each))}</div>
   }
 
   onClickJobsFailureBtn = () => {
@@ -327,7 +362,7 @@ class Jobs extends Component {
     console.log('Min package=', minPackage)
     return (
       <div className="bg-container">
-        <Header />
+        <Header className="header" />
         <div className="jobs-bottom-container">
           <div className="bottom-container">
             <div className="mobile-profile-container">
@@ -381,6 +416,70 @@ class Jobs extends Component {
                 ))}
               </ul>
               {this.renderMobileJobsContainer()}
+            </div>
+
+            <div className="large-devices">
+              <div className="large-width-container">
+                <div className="large-left-container">
+                  {this.renderProfileContainer()}
+                  <hr className="horizontail-line" />
+                  <ul className="unordered-employment-container">
+                    <h1>Types of Employment</h1>
+                    {employmentTypesList.map(each => (
+                      <li
+                        key={each.employmentTypeId}
+                        className="employment-item"
+                      >
+                        <input
+                          type="checkbox"
+                          id={each.label}
+                          onClick={this.onChangeCheckBox}
+                          value={each.employmentTypeId}
+                        />
+                        <label htmlFor={each.label}>{each.label}</label>
+                      </li>
+                    ))}
+                  </ul>
+                  <hr className="horizontail-line" />
+                  <ul className="unordered-employment-container">
+                    <h1>Salary Range</h1>
+                    {salaryRangesList.map(each => (
+                      <li
+                        key={each.employmentTypeId}
+                        className="employment-item"
+                      >
+                        <input
+                          type="radio"
+                          id={each.label}
+                          name="salary"
+                          value={each.salaryRangeId}
+                          onClick={this.onClickRadioInput}
+                        />
+                        <label htmlFor={each.label}>{each.label}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="right-container">
+                  <div className="search-container">
+                    <input
+                      type="search"
+                      placeholder="Search"
+                      className="input-element"
+                      onChange={this.onChangeJobSearch}
+                    />
+                    <button
+                      type="button"
+                      data-testid="searchButton"
+                      className="search-btn"
+                      onClick={this.onClickSearchBtn}
+                    >
+                      <BsSearch className="search-icon" />
+                    </button>
+                  </div>
+                  {this.renderMobileJobsContainer()}
+                </div>
+              </div>
             </div>
           </div>
         </div>
