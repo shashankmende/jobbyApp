@@ -2,20 +2,15 @@ import './index.css'
 
 const SkillItems = props => {
   const {skills} = props
+  const {imageUrl, name} = skills
   console.log('skills from items', skills)
 
-  const renderListItems = () => (
-    <ul className="skills-container">
-      {skills.map(each => (
-        <li className="skill-item">
-          <img src={each.imageUrl} alt={each.name} className="skill-img" />
-          <p className="skill-name">{each.name}</p>
-        </li>
-      ))}
-    </ul>
+  return (
+    <li className="skill-item">
+      <img src={imageUrl} alt={name} className="skill-img" />
+      <p className="skill-name">{name}</p>
+    </li>
   )
-
-  return renderListItems()
 }
 
 export default SkillItems

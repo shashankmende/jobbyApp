@@ -11,13 +11,7 @@
   font-family: 'Roboto';
   margin-left: 15px;
 }
-.skills-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
+
 .skill-img {
   width: 20%;
 }

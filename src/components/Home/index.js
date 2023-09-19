@@ -7,14 +7,11 @@ const Home = () => (
     <Header />
     <div className="text-top-container">
       <div className="text-container">
-        <h1>
-          Find The Job That
-          <br /> Fits Your Life
-        </h1>
+        <h1>Find The Job That Fits Your Life</h1>
         <p>
           Millions of people are searching for jobs, salary
           <br /> information,company reviews. Find the job that fits your
-          <br /> abilities and potenital
+          <br /> abilities and potential
         </p>
         <Link to="/jobs">
           <button className="find-jobs-btn" type="button">

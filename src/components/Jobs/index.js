@@ -72,6 +72,38 @@ class Jobs extends Component {
     this.getJobs()
   }
 
+  getProfile = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
+    const profileUrl = 'https://apis.ccbp.in/profile'
+    const token = Cookies.get('jwt_token')
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    const response = await fetch(profileUrl, options)
+    const data = await response.json()
+    console.log('profile details =', data)
+    if (response.ok === true) {
+      const userDet = {
+        profileImageUrl: data.profile_details.profile_image_url,
+        name: data.profile_details.name,
+        shortBio: data.profile_details.short_bio,
+      }
+      this.setState({
+        profileDetails: userDet,
+        apiStatus: apiStatusConstants.success,
+      })
+    } else {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
+    }
+  }
+
   onJobsApiSuccess = list => {
     console.log('list', list)
 
@@ -154,38 +186,6 @@ class Jobs extends Component {
 
   onClickSearchBtn = () => {
     this.getJobs()
-  }
-
-  getProfile = async () => {
-    this.setState({
-      apiStatus: apiStatusConstants.inProgress,
-    })
-    const profileUrl = 'https://apis.ccbp.in/profile'
-    const token = Cookies.get('jwt_token')
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-    const response = await fetch(profileUrl, options)
-    const data = await response.json()
-    console.log('profile details =', data)
-    if (response.ok === true) {
-      const userDet = {
-        profileImageUrl: data.profile_details.profile_image_url,
-        name: data.profile_details.name,
-        shortBio: data.profile_details.short_bio,
-      }
-      this.setState({
-        profileDetails: userDet,
-        apiStatus: apiStatusConstants.success,
-      })
-    } else {
-      this.setState({
-        apiStatus: apiStatusConstants.failure,
-      })
-    }
   }
 
   renderApiProfileSuccess = () => {
@@ -386,7 +386,7 @@ class Jobs extends Component {
               {this.renderProfileContainer()}
               <hr className="horizontail-line" />
               <ul className="unordered-employment-container">
-                <h1>Types of Employment</h1>
+                <h1>Type of Employment</h1>
                 {employmentTypesList.map(each => (
                   <li key={each.employmentTypeId} className="employment-item">
                     <input
@@ -400,8 +400,8 @@ class Jobs extends Component {
                 ))}
               </ul>
               <hr className="horizontail-line" />
+              <h1>Salary Range</h1>
               <ul className="unordered-employment-container">
-                <h1>Salary Range</h1>
                 {salaryRangesList.map(each => (
                   <li key={each.employmentTypeId} className="employment-item">
                     <input

@@ -14,7 +14,7 @@ const Header = props => {
 
   return (
     <nav className="nav-container">
-      <div className="header-container">
+      <ul className="header-container">
         <Link to="/">
           <img
             src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
@@ -23,30 +23,35 @@ const Header = props => {
           />
         </Link>
 
-        <ul className="mobile-unordered-container">
+        <li className="mobile-unordered-container">
           <Link to="/" className="nav-link-item">
             <GoHome className="home-icon" />
           </Link>
           <Link to="/jobs" className="nav-link-item">
             <BiShoppingBag className="jobs-icon" />
           </Link>
-        </ul>
+        </li>
 
-        <ul className="unordered-container">
+        <li className="unordered-container">
           <Link to="/" className="nav-link-item">
             <li className="list-item">Home</li>
           </Link>
           <Link to="/jobs" className="nav-link-item">
             <li className="list-item">Jobs</li>
           </Link>
-        </ul>
-        <button type="button" className="mobile-logout-btn">
-          <FiLogOut className="exit-btn" onClick={onClickLogout} />
-        </button>
-        <button type="button" className="logout-btn" onClick={onClickLogout}>
-          Logout
-        </button>
-      </div>
+        </li>
+        <li>
+          <button type="button" className="mobile-logout-btn">
+            <FiLogOut className="exit-btn" onClick={onClickLogout} />
+          </button>
+        </li>
+        <li>
+          {' '}
+          <button type="button" className="logout-btn" onClick={onClickLogout}>
+            Logout
+          </button>
+        </li>
+      </ul>
     </nav>
   )
 }
