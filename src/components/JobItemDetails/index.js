@@ -7,6 +7,7 @@ import {IoLocationSharp} from 'react-icons/io5'
 import {BsBagFill} from 'react-icons/bs'
 import {RiPictureInPictureExitFill} from 'react-icons/ri'
 import Header from '../Header'
+import SkillItems from '../SkillItems'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -18,8 +19,10 @@ const apiStatusConstants = {
 class JobItemDetails extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
-    jobDetails: {},
+    jobDetails: '',
     similarJobs: [],
+    skillsList: [],
+    lifeAtCompany: '',
   }
 
   componentDidMount() {
@@ -43,8 +46,10 @@ class JobItemDetails extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
+    console.log('data from item details =', data)
     const jobDetails = data.job_details
     const similarJobs = data.similar_jobs
+
     const updatedSimilarJobs = similarJobs.map(each => ({
       companyLogoUrl: each.company_logo_url,
 
@@ -56,10 +61,12 @@ class JobItemDetails extends Component {
       title: each.title,
     }))
     const {skills} = jobDetails
+
     const updatedSkills = skills.map(each => ({
       name: each.name,
       imageUrl: each.image_url,
     }))
+
     const updatedJobDetails = {
       companyLogoUrl: jobDetails.company_logo_url,
       companyWebsiteUrl: jobDetails.company_website_url,
@@ -73,15 +80,13 @@ class JobItemDetails extends Component {
       title: jobDetails.title,
       skills: updatedSkills,
     }
-    console.log('data from specific ', data)
-    const updatedObj = {
-      updatedSkills,
-      updatedSimilarJobs,
-    }
+
     if (response.ok === true) {
       this.setState({
         jobDetails: updatedJobDetails,
         similarJobs: updatedSimilarJobs,
+        skillsList: updatedSkills,
+
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -91,9 +96,23 @@ class JobItemDetails extends Component {
     }
   }
 
+  returnLifeAtCompany = obj => {
+    console.log('obj=', obj)
+    if (obj !== undefined) {
+      return {
+        description: obj.description,
+        imageUrl: obj.image_url,
+      }
+    }
+    return {
+      description: '',
+      imageUrl: '',
+    }
+  }
+
   render() {
-    const {jobDetails, similarJobs} = this.state
-    console.log(jobDetails, similarJobs)
+    const {jobDetails, similarJobs, skillsList} = this.state
+    console.log('skills from render=', skillsList)
     const {
       companyLogoUrl,
       companyWebsiteUrl,
@@ -104,8 +123,10 @@ class JobItemDetails extends Component {
       location,
       packagePerAnnum,
       title,
-      skills,
     } = jobDetails
+    console.log('life at company from render =', lifeAtCompany)
+    const {description, imageUrl} = this.returnLifeAtCompany(lifeAtCompany)
+
     return (
       <>
         <Header />
@@ -152,6 +173,38 @@ class JobItemDetails extends Component {
                 </a>
               </div>
               <p className="salary">{jobDescription}</p>
+              <h1 className="skills-heading">Skills</h1>
+              <SkillItems skills={skillsList} />
+              <h1 className="skills-heading">Life at Company</h1>
+              <div className="life-at-company-container">
+                <p className="skills-heading">{description}</p>
+                <img src={imageUrl} alt="life at company" />
+              </div>
+            </div>
+            <div className="bottom-container">
+              <h1 className="skills-heading">Similar Jobs</h1>
+              <ul className="similar-jobs-container">
+                {similarJobs.map(each => (
+                  <li className="similar-job-item">
+                    <div className="company-container">
+                      <img
+                        src={each.companyLogoUrl}
+                        alt="similar job company logo"
+                        className="company-logo"
+                      />
+                      <div className="designation-container">
+                        <h1 className="title">{each.title}</h1>
+                        <div className="rating-container">
+                          <AiFillStar className="star-img" />
+                          <p>{each.rating}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <h1>Description</h1>
+                    <p>{each.jobDescription}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
