@@ -32,14 +32,14 @@ const Header = props => {
           </Link>
         </li>
 
-        <li className="unordered-container">
+        <ul className="unordered-container">
           <Link to="/" className="nav-link-item">
             <li className="list-item">Home</li>
           </Link>
           <Link to="/jobs" className="nav-link-item">
             <li className="list-item">Jobs</li>
           </Link>
-        </li>
+        </ul>
         <li>
           <button type="button" className="mobile-logout-btn">
             <FiLogOut className="exit-btn" onClick={onClickLogout} />

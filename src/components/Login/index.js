@@ -3,17 +3,17 @@ import Cookies from 'js-cookie'
 import './index.css'
 
 class Login extends Component {
-  state = {username: '', password: '', ErrorMsg: ''}
+  state = {usernameInput: '', passwordInput: '', ErrorMsg: ''}
 
   onChangeUserInput = event => {
     this.setState({
-      username: event.target.value,
+      usernameInput: event.target.value,
     })
   }
 
   onChangePassword = event => {
     this.setState({
-      password: event.target.value,
+      passwordInput: event.target.value,
     })
   }
 
@@ -36,11 +36,11 @@ class Login extends Component {
 
   onClickLogin = async event => {
     event.preventDefault()
-    const {username, password} = this.state
+    const {usernameInput, passwordInput} = this.state
     const apiUrl = 'https://apis.ccbp.in/login'
     const userDetails = {
-      username,
-      password,
+      username: usernameInput,
+      password: passwordInput,
     }
     const options = {
       method: 'POST',

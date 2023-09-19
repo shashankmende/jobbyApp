@@ -253,7 +253,7 @@ class Jobs extends Component {
 
   renderJobItems = each => (
     <Link to={`/jobs/${each.id}`}>
-      <div className="job-description-container">
+      <div className="job-description-container" key={each.id}>
         <div className="company-container">
           <img
             src={each.companyLogoUrl}
