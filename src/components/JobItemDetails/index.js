@@ -222,11 +222,11 @@ class JobItemDetails extends Component {
                     <div className="location-job-container">
                       <div className="location-container">
                         <IoLocationSharp />
-                        <p className="location">{location}</p>
+                        <p className="location">{each.location}</p>
                       </div>
                       <div className="location-container">
                         <BsBagFill />
-                        <p className="location">{employmentType}</p>
+                        <p className="location">{each.employmentType}</p>
                       </div>
                     </div>
                   </div>

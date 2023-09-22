@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -28,7 +29,6 @@ class Login extends Component {
   }
 
   onSubmitFailure = error => {
-    console.log('error=', error)
     this.setState({
       ErrorMsg: `*${error}`,
     })
@@ -42,13 +42,15 @@ class Login extends Component {
       username: usernameInput,
       password: passwordInput,
     }
+    const stringifiedData = JSON.stringify(userDetails)
     const options = {
       method: 'POST',
-      body: JSON.stringify(userDetails),
+      body: stringifiedData,
     }
+
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-    console.log('data =', response)
+
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
     } else {
@@ -57,7 +59,11 @@ class Login extends Component {
   }
 
   render() {
-    const {ErrorMsg} = this.state
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
+    const {ErrorMsg, usernameInput, passwordInput} = this.state
     return (
       <div className="bg-container">
         <form className="form-container" onClick={this.onClickLogin}>
@@ -75,6 +81,7 @@ class Login extends Component {
               type="text"
               placeholder="Username"
               className="userinput"
+              value={usernameInput}
               onChange={this.onChangeUserInput}
             />
           </div>
@@ -87,6 +94,7 @@ class Login extends Component {
               type="password"
               placeholder="Password"
               className="userinput"
+              value={passwordInput}
               onChange={this.onChangePassword}
             />
           </div>

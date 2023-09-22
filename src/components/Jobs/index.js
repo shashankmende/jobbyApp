@@ -252,8 +252,8 @@ class Jobs extends Component {
   })
 
   renderJobItems = each => (
-    <Link to={`/jobs/${each.id}`}>
-      <div className="job-description-container" key={each.id}>
+    <Link to={`/jobs/${each.id}`} className="job-link-item">
+      <li className="job-description-container" key={each.id}>
         <div className="company-container">
           <img
             src={each.companyLogoUrl}
@@ -282,8 +282,9 @@ class Jobs extends Component {
           <p className="package">{each.packagePerAnnum}</p>
         </div>
         <hr className="horizontal-line" />
+        <h1>Description</h1>
         <p className="job-description">{each.jobDescription}</p>
-      </div>
+      </li>
     </Link>
   )
 
@@ -296,7 +297,7 @@ class Jobs extends Component {
       return this.renderNoProductsSection()
     }
 
-    return <div>{updatedList.map(each => this.renderJobItems(each))}</div>
+    return <ul>{updatedList.map(each => this.renderJobItems(each))}</ul>
   }
 
   onClickJobsFailureBtn = () => {
@@ -365,66 +366,13 @@ class Jobs extends Component {
         <Header className="header" />
         <div className="jobs-bottom-container">
           <div className="bottom-container">
-            <div className="mobile-profile-container">
-              <div className="search-container">
-                <input
-                  type="search"
-                  placeholder="Search"
-                  className="input-element"
-                  onChange={this.onChangeJobSearch}
-                />
-                <button
-                  type="button"
-                  data-testid="searchButton"
-                  className="search-btn"
-                  onClick={this.onClickSearchBtn}
-                >
-                  <BsSearch className="search-icon" />
-                </button>
-              </div>
-
-              {this.renderProfileContainer()}
-              <hr className="horizontail-line" />
-              <ul className="unordered-employment-container">
-                <h1>Type of Employment</h1>
-                {employmentTypesList.map(each => (
-                  <li key={each.employmentTypeId} className="employment-item">
-                    <input
-                      type="checkbox"
-                      id={each.label}
-                      onClick={this.onChangeCheckBox}
-                      value={each.employmentTypeId}
-                    />
-                    <label htmlFor={each.label}>{each.label}</label>
-                  </li>
-                ))}
-              </ul>
-              <hr className="horizontail-line" />
-              <h1>Salary Range</h1>
-              <ul className="unordered-employment-container">
-                {salaryRangesList.map(each => (
-                  <li key={each.employmentTypeId} className="employment-item">
-                    <input
-                      type="radio"
-                      id={each.label}
-                      name="salary"
-                      value={each.salaryRangeId}
-                      onClick={this.onClickRadioInput}
-                    />
-                    <label htmlFor={each.label}>{each.label}</label>
-                  </li>
-                ))}
-              </ul>
-              {this.renderMobileJobsContainer()}
-            </div>
-
             <div className="large-devices">
               <div className="large-width-container">
                 <div className="large-left-container">
                   {this.renderProfileContainer()}
                   <hr className="horizontail-line" />
                   <ul className="unordered-employment-container">
-                    <h1>Types of Employment</h1>
+                    <h1>Type of Employment</h1>
                     {employmentTypesList.map(each => (
                       <li
                         key={each.employmentTypeId}
@@ -444,10 +392,7 @@ class Jobs extends Component {
                   <ul className="unordered-employment-container">
                     <h1>Salary Range</h1>
                     {salaryRangesList.map(each => (
-                      <li
-                        key={each.employmentTypeId}
-                        className="employment-item"
-                      >
+                      <li key={each.salaryRangeId} className="employment-item">
                         <input
                           type="radio"
                           id={each.label}
