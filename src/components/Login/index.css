@@ -1,11 +1,9 @@
-.bg-container {
+.login-container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #000000;
-  height: 100vh;
-  border: 2px solid orange;
 }
 .form-container {
   width: 30%;

@@ -135,107 +135,109 @@ class JobItemDetails extends Component {
     const {description, imageUrl} = this.returnLifeAtCompany(lifeAtCompany)
 
     return (
-      <div className="job-details-container">
-        <div className="top-container">
-          <div className="data-container">
-            <div className="company-container">
-              <img
-                src={companyLogoUrl}
-                alt="job details company logo"
-                className="company-logo"
-              />
-              <div className="designation-container">
-                <h1 className="title">{title}</h1>
-                <div className="rating-container">
-                  <AiFillStar className="star-img" />
-                  <p>{rating}</p>
+      <>
+        <div className="job-details-container">
+          <div className="top-container">
+            <div className="data-container">
+              <div className="company-container">
+                <img
+                  src={companyLogoUrl}
+                  alt="job details company logo"
+                  className="company-logo"
+                />
+                <div className="designation-container">
+                  <h1 className="title">{title}</h1>
+                  <div className="rating-container">
+                    <AiFillStar className="star-img" />
+                    <p>{rating}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="location-salary-type-container">
-              <div className="location-job-container">
-                <div className="location-container">
-                  <IoLocationSharp />
-                  <p className="location">{location}</p>
+              <div className="location-salary-type-container">
+                <div className="location-job-container">
+                  <div className="location-container">
+                    <IoLocationSharp />
+                    <p className="location">{location}</p>
+                  </div>
+                  <div className="location-container">
+                    <BsBagFill />
+                    <p className="location">{employmentType}</p>
+                  </div>
                 </div>
-                <div className="location-container">
-                  <BsBagFill />
-                  <p className="location">{employmentType}</p>
-                </div>
+                <p className="salary">{packagePerAnnum}</p>
               </div>
-              <p className="salary">{packagePerAnnum}</p>
-            </div>
 
-            <hr className="horizontal-line" />
+              <hr className="horizontal-line" />
 
-            <div className="heading-and-button-container">
-              <h1 className="salary">Description</h1>
-              <a href={companyWebsiteUrl} target="_blank" rel="noreferrer">
-                <button type="button" className="visit-btn">
-                  <p>Visit</p>
-                  <RiPictureInPictureExitFill />
-                </button>
-              </a>
-            </div>
-            <p className="salary">{jobDescription}</p>
-            <h1 className="skills-heading">Skills</h1>
-            <ul className="skills-container">
-              {skillsList.map(each => (
-                <li className="skill-item" key={each.name}>
-                  <img
-                    src={each.imageUrl}
-                    alt={each.name}
-                    className="skill-img"
-                  />
-                  <p className="skill-name">{each.name}</p>
-                </li>
-              ))}
-            </ul>
-            <h1 className="skills-heading">Life at Company</h1>
-            <div className="life-at-company-container">
-              <p className="skills-heading">{description}</p>
-              <img src={imageUrl} alt="life at company" />
-            </div>
-          </div>
-          <div className="bottom-container">
-            <h1 className="skills-heading">Similar Jobs</h1>
-            <ul className="similar-jobs-container">
-              {similarJobs.map(each => (
-                <li className="similar-job-item" key={each.name}>
-                  <div className="company-container">
+              <div className="heading-and-button-container">
+                <h1 className="salary">Description</h1>
+                <a href={companyWebsiteUrl} target="_blank" rel="noreferrer">
+                  <button type="button" className="visit-btn">
+                    <p>Visit</p>
+                    <RiPictureInPictureExitFill />
+                  </button>
+                </a>
+              </div>
+              <p className="salary">{jobDescription}</p>
+              <h1 className="skills-heading">Skills</h1>
+              <ul className="skills-container">
+                {skillsList.map(each => (
+                  <li className="skill-item" key={each.name}>
                     <img
-                      src={each.companyLogoUrl}
-                      alt="similar job company logo"
-                      className="company-logo"
+                      src={each.imageUrl}
+                      alt={each.name}
+                      className="skill-img"
                     />
-                    <div className="designation-container">
-                      <h1 className="title">{each.title}</h1>
-                      <div className="rating-container">
-                        <AiFillStar className="star-img" />
-                        <p>{each.rating}</p>
+                    <p className="skill-name">{each.name}</p>
+                  </li>
+                ))}
+              </ul>
+              <h1 className="skills-heading">Life at Company</h1>
+              <div className="life-at-company-container">
+                <p className="skills-heading">{description}</p>
+                <img src={imageUrl} alt="life at company" />
+              </div>
+            </div>
+            <div className="bottom-container">
+              <h1 className="skills-heading">Similar Jobs</h1>
+              <ul className="similar-jobs-container">
+                {similarJobs.map(each => (
+                  <li className="similar-job-item" key={each.name}>
+                    <div className="company-container">
+                      <img
+                        src={each.companyLogoUrl}
+                        alt="similar job company logo"
+                        className="company-logo"
+                      />
+                      <div className="designation-container">
+                        <h1 className="title">{each.title}</h1>
+                        <div className="rating-container">
+                          <AiFillStar className="star-img" />
+                          <p>{each.rating}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <h1>Description</h1>
-                  <p>{each.jobDescription}</p>
-                  <div className="location-salary-type-container">
-                    <div className="location-job-container">
-                      <div className="location-container">
-                        <IoLocationSharp />
-                        <p className="location">{each.location}</p>
-                      </div>
-                      <div className="location-container">
-                        <BsBagFill />
-                        <p className="location">{each.employmentType}</p>
+                    <h1>Description</h1>
+                    <p>{each.jobDescription}</p>
+                    <div className="location-salary-type-container">
+                      <div className="location-job-container">
+                        <div className="location-container">
+                          <IoLocationSharp />
+                          <p className="location">{each.location}</p>
+                        </div>
+                        <div className="location-container">
+                          <BsBagFill />
+                          <p className="location">{each.employmentType}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 
@@ -291,7 +293,9 @@ class JobItemDetails extends Component {
     return (
       <>
         <Header />
-        {this.returnResultContainer()}
+        <div className="job-item-details-container">
+          {this.returnResultContainer()}
+        </div>
       </>
     )
   }

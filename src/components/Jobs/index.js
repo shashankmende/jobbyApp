@@ -49,9 +49,32 @@ const salaryRangesList = [
   },
 ]
 
+const locationList = [
+  {
+    id: 1,
+    location: 'Hyderabad',
+  },
+  {
+    id: 2,
+    location: 'Bangalore',
+  },
+  {
+    id: 3,
+    location: 'Chennai',
+  },
+  {
+    id: 4,
+    location: 'Delhi',
+  },
+  {
+    id: 5,
+    location: 'Mumbai',
+  },
+]
+
 const apiStatusConstants = {
   initial: 'INITIAL',
-  inProgress: 'IN_PROGRSS',
+  inProgress: 'IN_PROGRESS',
   success: 'SUCCESS',
   failure: 'FAILURE',
 }
@@ -65,6 +88,8 @@ class Jobs extends Component {
     minPackage: '',
     jobSearch: '',
     jobsList: [],
+
+    locationFilter: [],
   }
 
   componentDidMount() {
@@ -124,10 +149,11 @@ class Jobs extends Component {
     this.setState({
       jobsApiStatus: apiStatusConstants.inProgress,
     })
-    const {jobSearch, minPackage, EType} = this.state
+    const {jobSearch, minPackage, EType, locationFilter} = this.state
     const joinType = EType.join(',')
+    const locationJoin = locationFilter.join(',')
     console.log(joinType)
-    const jobsApiUrl = `https://apis.ccbp.in/jobs?employment_type=${joinType}&minimum_package=${minPackage}&search=${jobSearch}`
+    const jobsApiUrl = `https://apis.ccbp.in/jobs?employment_type=${joinType}&minimum_package=${minPackage}&search=${jobSearch}&Location=${locationJoin}`
     const token = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -297,7 +323,11 @@ class Jobs extends Component {
       return this.renderNoProductsSection()
     }
 
-    return <ul>{updatedList.map(each => this.renderJobItems(each))}</ul>
+    return (
+      <ul className="job-items-container">
+        {updatedList.map(each => this.renderJobItems(each))}
+      </ul>
+    )
   }
 
   onClickJobsFailureBtn = () => {
@@ -357,78 +387,122 @@ class Jobs extends Component {
     }
   }
 
+  onChangeLocation = event => {
+    const {locationFilter} = this.state
+    console.log(event.target.value)
+    const empValue = event.target.value
+    const isExist = locationFilter.includes(empValue)
+    if (isExist === false) {
+      locationFilter.push(empValue)
+    } else {
+      const index = locationFilter.indexOf(empValue)
+      console.log('index=', index)
+      locationFilter.splice(index, 1)
+    }
+
+    this.setState(
+      {
+        locationFilter,
+      },
+      this.getJobs,
+    )
+  }
+
   render() {
     const {EType, minPackage} = this.state
     console.log('Etype=', EType)
     console.log('Min package=', minPackage)
     return (
-      <div className="bg-container">
-        <Header className="header" />
-        <div className="jobs-bottom-container">
-          <div className="bottom-container">
-            <div className="large-devices">
-              <div className="large-width-container">
-                <div className="large-left-container">
-                  {this.renderProfileContainer()}
-                  <hr className="horizontail-line" />
-                  <ul className="unordered-employment-container">
-                    <h1>Type of Employment</h1>
-                    {employmentTypesList.map(each => (
-                      <li
-                        key={each.employmentTypeId}
-                        className="employment-item"
-                      >
+      <>
+        <div className="jobs-container">
+          <Header className="header" />
+          <div className="bg-container">
+            <div className="jobs-bottom-container">
+              <div className="bottom-container">
+                <div className="large-devices">
+                  <div className="large-width-container">
+                    <div className="large-left-container">
+                      {this.renderProfileContainer()}
+                      <hr className="horizontail-line" />
+                      <ul className="unordered-employment-container">
+                        <h1>Type of Employment</h1>
+                        {employmentTypesList.map(each => (
+                          <li
+                            key={each.employmentTypeId}
+                            className="employment-item"
+                          >
+                            <input
+                              type="checkbox"
+                              id={each.label}
+                              onClick={this.onChangeCheckBox}
+                              value={each.employmentTypeId}
+                            />
+                            <label htmlFor={each.label}>{each.label}</label>
+                          </li>
+                        ))}
+                      </ul>
+                      <hr className="horizontail-line" />
+                      <ul className="unordered-employment-container">
+                        <h1>Salary Range</h1>
+                        {salaryRangesList.map(each => (
+                          <li
+                            key={each.salaryRangeId}
+                            className="employment-item"
+                          >
+                            <input
+                              type="radio"
+                              id={each.label}
+                              name="salary"
+                              value={each.salaryRangeId}
+                              onClick={this.onClickRadioInput}
+                            />
+                            <label htmlFor={each.label}>{each.label}</label>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <hr className="horizontail-line" />
+                      <ul className="unordered-employment-container">
+                        <h1>Location</h1>
+                        {locationList.map(each => (
+                          <li key={each.id} className="employment-item">
+                            <input
+                              type="checkbox"
+                              id={each.id}
+                              onClick={this.onChangeLocation}
+                              value={each.location}
+                            />
+                            <label htmlFor={each.id}>{each.location}</label>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="right-container">
+                      <div className="search-container">
                         <input
-                          type="checkbox"
-                          id={each.label}
-                          onClick={this.onChangeCheckBox}
-                          value={each.employmentTypeId}
+                          type="search"
+                          placeholder="Search"
+                          className="input-element"
+                          onChange={this.onChangeJobSearch}
                         />
-                        <label htmlFor={each.label}>{each.label}</label>
-                      </li>
-                    ))}
-                  </ul>
-                  <hr className="horizontail-line" />
-                  <ul className="unordered-employment-container">
-                    <h1>Salary Range</h1>
-                    {salaryRangesList.map(each => (
-                      <li key={each.salaryRangeId} className="employment-item">
-                        <input
-                          type="radio"
-                          id={each.label}
-                          name="salary"
-                          value={each.salaryRangeId}
-                          onClick={this.onClickRadioInput}
-                        />
-                        <label htmlFor={each.label}>{each.label}</label>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="right-container">
-                  <div className="search-container">
-                    <input
-                      type="search"
-                      placeholder="Search"
-                      className="input-element"
-                      onChange={this.onChangeJobSearch}
-                    />
-                    <button
-                      type="button"
-                      data-testid="searchButton"
-                      className="search-btn"
-                      onClick={this.onClickSearchBtn}
-                    >
-                      <BsSearch className="search-icon" />
-                    </button>
+                        <button
+                          type="button"
+                          data-testid="searchButton"
+                          className="search-btn"
+                          onClick={this.onClickSearchBtn}
+                        >
+                          <BsSearch className="search-icon" />
+                        </button>
+                      </div>
+                      {this.renderMobileJobsContainer()}
+                    </div>
                   </div>
-                  {this.renderMobileJobsContainer()}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }
